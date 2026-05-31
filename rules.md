@@ -109,8 +109,8 @@ A card may be healed until above its maximum health.
 
 ## Board
 
-The board is made up of $4$ pairs of lanes.
-Each lane pair has $2 \cdot 3 = 6$ locations:
+The board is made up of 4 pairs of lanes.
+Each lane pair has 2×3 = 6 locations:
 
 1. Structure
 2. Defence
