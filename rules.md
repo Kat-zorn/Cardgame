@@ -9,9 +9,8 @@ This will be explicitly mentioned.
 There are two playable characters: `Sun` and `Moon`.
 Each character has their own theme and with that, deck, playstyle, and turn structure.
 
-They also start out with $20$ health and 5 cards in their hand.
-
-When a player's health is reduced to $0$, the other player wins.
+They also start out with 20 health and 5 cards in their hand.
+When a player's health is reduced to 0 (or below), the other player wins.
 
 ## Phases
 
@@ -23,19 +22,17 @@ Trying to advance from the final phase, will result in looping back to the initi
 Phases will follow the general structure of
 
 1. Setup
-2. Damage
-3. Falloff
+2. Payoff
+3. Retreat
 
 ## Turns
 
-Each turn follows the following structure:
+Within a turn, the following actions may be taken, in this order:
 
 1. Advance your phase.
-2. Draw one card. (Up to $5$)
-3. Play, activate, and maneuver cards who's requirements are met.
-4. Discard and draw a card.
-
-Each step is optional.
+2. `Draw` 1. (Up to 5)
+3. Play, activate, and maneuver cards whose requirements are met.
+4. `Discard` 1, then `draw` 1.
 
 ## Cards
 
@@ -45,34 +42,35 @@ There are different card types:
 - Structures
 - Spells
 
-During the player's second phase, their deployed card may be activated
-as long as it is not exhausted.
+During the player's second phase, their deployed cards may be activated
+as long as they are not exhausted.
 
-What this entails will be specified on the card.
-If it is not specified, the card may damage any orthogonally neighbouring card for their `Damage` stat.
-
-Being activated always exhausts the card, unless the contrary is specified.
+When a card it activated, it damages an orthogonally neighbouring card of choice for their `damage`.
+This exhausts the card.
 
 ### Creatures
 
-Creatures are summoned on defensively on a lane.
+Creatures are deployed defensively on a lane,
+and only if no other card is in that position.
 
-They may maneuver once per turn.
+If not exhausted, creatures may maneuver.
 This exhausts them.
 
 ### Structures
 
-Structures may only be positioned in the back of a lane.
+Structures are deployed in the structure part of the lane,
+and only if no other card is in that position.
 
 ### Spells
 
+Spells may be deployed at any position, regardless of occupancy.
 Spells will be activated immediately after being deployed.
 
 ## Card Piles
 
-Each deck two copies of each card in their `PlayerName.md` file.
+Each player's deck has two copies of each card in their character's `PlayerName.md` file.
 
-The are three card piles:
+There are three card piles:
 
 - Draw pile
 - Discard pile
@@ -82,17 +80,16 @@ At the start of the game, the entire deck is shuffled, and placed onto the draw 
 
 When a card is discarded, it moves to the discard pile.
 
-When a card's health drops to $0$ or it is a played spell, it is moved to the graveyard.
-
-When both draw piles are emptied,
-the players may decide to shuffle their discard piles into their draw piles.
-They must both agree to this.
-The decision must be made right after the last card is drawn.
-It is final.
-
-Note that cards in the graveyard, stay in the graveyard, during this process.
+When a deployed card's health drops to 0 or it is a deployed spell, it is moved to the graveyard.
 
 When a player's draw and discard pile is empty, they can no longer draw cards.
+
+When both player's draw piles are empty,
+they may mutually decide to shuffle their discard piles into their draw piles.
+The decision must be made right after the last card is drawn.
+Once another action has been taken, this decision becomes binding.
+
+Note that cards in the graveyard, stay in the graveyard, during this process.
 
 ## Health
 
@@ -105,10 +102,10 @@ and green ones, with a value of 5.
 Damaging a card will remove an amount of health cubes from it,
 while healing adds them.
 
-If a card's health drops below 0, it dies. This happens immediately, unless the contrary is specified.
+If a card's health drops to 0, it dies and is placed in the graveyard.
+This happens immediately, before any player actions.
 
-A card may be healed until above its maximum health,
-unless the contrary is specified.
+A card may be healed until above its maximum health.
 
 ## Board
 
@@ -128,12 +125,8 @@ This makes the board look like:
 | C1 + C2         | Structure 1 | Defence 1 | Offence 1 | Offence 2 | Defence 2 | Structure 2 |
 | D1 + D2         | Structure 1 | Defence 1 | Offence 1 | Offence 2 | Defence 2 | Structure 2 |
 
-By default, a card can only attack cards orthogonally adjacent. (`Range`)
+By default, a card can only attack cards orthogonally adjacent. (Encoded in its `Range`)
 
 A creature in the opponent's defending position,
-in a lane that does not have a structure,
+in a lane where the opponent does not have a structure,
 may choose to attack their opponent directly.
-
-Creatures can, by default, only maneuver orthogonally.
-This exhausts them.
-Creatures may not maneuver to occupied locations. (`Movement`)
